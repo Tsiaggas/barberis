@@ -5,10 +5,72 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome = 1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <script src="script.js"></script>
 </head>
 <body>
+    <header>
+        <h1>Barber Shop</h1>
+      </header>
+      <nav>
+        <ul>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <main>
+        <section id="services">
+          <h2>Services</h2>
+          <ul>
+            <li>Haircut</li>
+            <li>Beard trim</li>
+            <li>Shave</li>
+          </ul>
+          <p>Book an appointment now and get 10% off your first visit!</p>
+          <a href="#contact" class="button">Book now</a>
+        </section>
+        <section id="about">
+          <h2>About</h2>
+          <p>We are a team of experienced barbers who provide top-notch grooming services to our clients. We use only the best products and techniques to ensure that you look and feel your best after every visit.</p>
+        </section>
+        <section id="contact">
+          <h2>Contact</h2>
+          <p>Book an appointment by filling out the form below:</p>
+          <form id="booking-form">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+  
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+  
+            <label for="phone">Phone:</label>
+            <input type="tel" id="phone" name="phone" required>
+  
+            <label for="service">Service:</label>
+            <select id="service" name="service" required>
+              <option value="">Select a service</option>
+              <option value="Haircut">Haircut</option>
+              <option value="Beard trim">Beard trim</option>
+              <option value="Shave">Shave</option>
+            </select>
+  
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+  
+            <label for="time">Time:</label>
+            <input type="time" id="time" name="time" required>
+  
+            <label for="message">Message:</label>
+            <textarea id="message" name="message"></textarea>
+  
+            <input type="submit" value="Book now">
+          </form>
+        </section>
+      </main>
+      <footer>
+        <p>&copy; 2023 Tsiaggas Theodosis</p>
+      </footer>
+      <script src="script.js"></script>
 
-<script src="script.js"></script>
 </body>
 </html>
