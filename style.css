@@ -1,3 +1,7 @@
+html , body {
+  margin: 0;
+  padding: 0;
+}
 header {
   position: sticky;
   top: 0;
@@ -16,6 +20,7 @@ header a img {
 nav {
   display: flex;
   align-items: center;
+  padding: 10px;
 }
 
 nav ul {
@@ -30,19 +35,46 @@ nav ul li {
 /* Μορφή κουμπιών */
 nav ul li a {
   display: block;
-  border: 0.1px solid #030c11;
+  border: 0.1px solid #fff;
   border-radius: 50px;
   width: 200px;
   height: 50px;
   text-align: center;
   line-height: 50px;
-  text-decoration: dotted;
+  text-decoration: none;
   color: #000;
   font-weight: bold;/* στυλ γραμματοσειράς */
   font-family: sans-serif;
+  transition: opacity 0.3s ease-in-out;
 }
 /* οταν κάνεις hover */
 nav ul li a:hover {
-  background-color: #26163c;
+  background-color: #08030f;
   color: #e5d7d7;
+  opacity: 1;
+}
+body.light a {
+  color: #000;
+}
+
+body.dark a {
+  color: #fff;
+}
+
+/* Media queries κινητά*/
+@media only screen and (max-width: 768px) {
+  header a img {
+    max-height: 50px;
+  }
+  
+  nav ul li {
+    margin-right: 0px;
+  }
+  
+  nav ul li a {
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+  }
 }
