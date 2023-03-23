@@ -4,7 +4,6 @@ header {
   display: flex;
   align-items: center;
   justify-content: unsafe;
-  background-color: #fefefd; /* change to desired light brown color */
   padding: 0px;
   z-index: 1;
 }
@@ -44,6 +43,6 @@ nav ul li a {
 }
 /* οταν κάνεις hover */
 nav ul li a:hover {
-  background-color: #0f0d0d;
-  color: #890707;
+  background-color: #26163c;
+  color: #e5d7d7;
 }
