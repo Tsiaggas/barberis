@@ -194,20 +194,14 @@
                     if (!response.ok) {
                         throw new Error("Network response was not ok");
                     }
-                    return response.text(); // Διάβασε την απάντηση ως κείμενο
+                    return response.json(); // Μετατροπή της απόκρισης σε JSON
                 })
-                .then(text => {
-                    try {
-                        const result = JSON.parse(text); // Μετατροπή του κειμένου σε JSON
-                        if (result.status === "success") {
-                            alert(result.message); // Pop-up μήνυμα επιτυχίας
-                            window.location.href = "index.html"; // Redirect στην αρχική σελίδα
-                        } else {
-                            alert(result.message); // Pop-up μήνυμα σφάλματος
-                        }
-                    } catch (error) {
-                        console.error("Error parsing JSON:", error); // Εμφάνισε το σφάλμα στην κονσόλα
-                        alert("Σφάλμα κατά την επεξεργασία της απάντησης.");
+                .then(result => {
+                    if (result.status === "success") {
+                        alert(result.message); // Pop-up μήνυμα επιτυχίας
+                        window.location.href = "index.html"; // Redirect στην αρχική σελίδα
+                    } else {
+                        alert(result.message); // Pop-up μήνυμα σφάλματος
                     }
                 })
                 .catch(error => {
@@ -215,6 +209,7 @@
                     alert("Σφάλμα κατά την υποβολή της φόρμας."); // Pop-up μήνυμα σφάλματος
                 });
         }
+
     </script>
 </body>
 
