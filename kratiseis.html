@@ -145,6 +145,7 @@
         </form>
     </div>
     <script>
+
         function validateForm() {
             const name = document.getElementById('name').value.trim();
             const email = document.getElementById('email').value.trim();
@@ -190,7 +191,12 @@
                 method: 'POST',
                 body: formData
             })
-                .then(response => response.json()) // Διάβασε την απάντηση ως JSON
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json(); // Διάβασε την απάντηση ως JSON
+                })
                 .then(result => {
                     if (result.status === "success") {
                         alert(result.message); // Pop-up μήνυμα επιτυχίας
@@ -200,9 +206,11 @@
                     }
                 })
                 .catch(error => {
+                    console.error("Error:", error); // Εμφάνισε το σφάλμα στην κονσόλα
                     alert("Σφάλμα κατά την υποβολή της φόρμας."); // Pop-up μήνυμα σφάλματος
                 });
         }
+
     </script>
 </body>
 
