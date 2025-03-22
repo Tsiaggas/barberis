@@ -102,13 +102,13 @@
                 method: 'POST',
                 body: formData
             })
-            .then(response => response.text())
+            .then(response => response.json()) // Διάβασε την απάντηση ως JSON
             .then(result => {
-                if (result === "Success") {
-                    alert("Ευχαριστούμε για την κράτηση!"); // Pop-up μήνυμα επιτυχίας
+                if (result.status === "success") {
+                    alert(result.message); // Pop-up μήνυμα επιτυχίας
                     window.location.href = "index.html"; // Redirect στην αρχική σελίδα
                 } else {
-                    alert("Σφάλμα: " + result); // Pop-up μήνυμα σφάλματος
+                    alert(result.message); // Pop-up μήνυμα σφάλματος
                 }
             })
             .catch(error => {
