@@ -186,6 +186,8 @@
             const form = event.target;
             const formData = new FormData(form);
 
+            console.log("Form Data:", formData); // Εμφάνισε τα δεδομένα της φόρμας
+
             fetch(form.action, {
                 method: 'POST',
                 body: formData
@@ -197,6 +199,7 @@
                     return response.json(); // Διάβασε την απάντηση ως JSON
                 })
                 .then(result => {
+                    console.log("Response:", result); // Εμφάνισε την απάντηση
                     if (result.status === "success") {
                         alert(result.message); // Pop-up μήνυμα επιτυχίας
                         window.location.href = "index.html"; // Redirect στην αρχική σελίδα
