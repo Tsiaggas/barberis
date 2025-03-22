@@ -154,9 +154,12 @@
                 method: 'POST',
                 body: formData
             })
-                .then(response => response.text()) // Διάβασε την απάντηση ως κείμενο
+                .then(response => {
+                    console.log("Response received:", response);  // Εκτύπωση της απάντησης πριν γίνει το parsing
+                    return response.text(); // Διαβάζουμε την απάντηση ως κείμενο
+                })
                 .then(text => {
-                    console.log(text);  // Εκτύπωση του κειμένου της απάντησης πριν το μετατρέψουμε σε JSON
+                    console.log("Response text:", text);  // Εκτύπωση του κειμένου
                     try {
                         const result = JSON.parse(text); // Μετατροπή του κειμένου σε JSON
                         if (result.status === "success") {
@@ -175,6 +178,7 @@
                     alert("Σφάλμα κατά την υποβολή της φόρμας."); // Pop-up μήνυμα σφάλματος
                 });
         }
+
     </script>
 </body>
 
