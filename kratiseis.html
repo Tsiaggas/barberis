@@ -34,7 +34,6 @@
             /* Adjust the height as needed */
         }
 
-
         h2 {
             text-align: center;
             color: #333;
@@ -82,6 +81,12 @@
         button:focus {
             outline: none;
         }
+
+        #message {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -109,7 +114,7 @@
     </header>
     <div class="reservation-container">
         <h2>Φόρμα Κράτησης</h2>
-        <form class="reservation-form" action="https://script.google.com/macros/s/AKfycbyA9GgqbnWyjTUw229R7gQzC3iIP4E0Wd6Nki3fD9d0gZWwaHxhdDfw7U-BtFJ4QKWzXw/exec" method="POST">
+        <form class="reservation-form" action="https://script.google.com/macros/s/AKfycbyA9GgqbnWyjTUw229R7gQzC3iIP4E0Wd6Nki3fD9d0gZWwaHxhdDfw7U-BtFJ4QKWzXw/exec" method="POST" onsubmit="return validateForm()">
             <div class="form-group">
                 <label for="name">Όνομα</label>
                 <input type="text" id="name" name="name" required>
@@ -144,9 +149,50 @@
                 <label for="message">Μήνυμα</label>
                 <textarea id="message" name="message" rows="4"></textarea>
             </div>
+            <div id="message"></div>
             <button type="submit">Submit</button>
         </form>
     </div>
+
+    <script>
+        function validateForm() {
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+            const service = document.getElementById('service').value;
+            const messageDiv = document.getElementById('message');
+
+            // Έλεγχος για απαιτούμενα πεδία
+            if (!name || !email || !phone || !date || !time || !service) {
+                messageDiv.textContent = "Παρακαλώ συμπλήρωσε όλα τα απαιτούμενα πεδία.";
+                messageDiv.style.color = "red";
+                return false;
+            }
+
+            // Έλεγχος για έγκυρο email
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                messageDiv.textContent = "Παρακαλώ εισάγετε ένα έγκυρο email.";
+                messageDiv.style.color = "red";
+                return false;
+            }
+
+            // Έλεγχος για έγκυρο τηλέφωνο (τουλάχιστον 10 ψηφία)
+            const phonePattern = /^\d{10}$/;
+            if (!phonePattern.test(phone)) {
+                messageDiv.textContent = "Παρακαλώ εισάγετε ένα έγκυρο τηλέφωνο (10 ψηφία).";
+                messageDiv.style.color = "red";
+                return false;
+            }
+
+            // Αν όλα είναι εντάξει, εμφάνισε μήνυμα επιτυχίας
+            messageDiv.textContent = "Η φόρμα υποβλήθηκε με επιτυχία!";
+            messageDiv.style.color = "green";
+            return true;
+        }
+    </script>
 </body>
 
 </html>
