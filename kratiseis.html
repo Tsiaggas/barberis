@@ -18,7 +18,7 @@
     </header>
     <div class="reservation-container">
         <h2>Φόρμα Κράτησης</h2>
-        <form class="reservation-form" action="https://script.google.com/macros/s/AKfycbyA9GgqbnWyjTUw229R7gQzC3iIP4E0Wd6Nki3fD9d0gZWwaHxhdDfw7U-BtFJ4QKWzXw/exec" method="POST" onsubmit="return validateForm()">
+        <form class="reservation-form" action="https://script.google.com/macros/s/AKfycbyA9GgqbnWyjTUw229R7gQzC3iIP4E0Wd6Nki3fD9d0gZWwaHxhdDfw7U-BtFJ4QKWzXw/exec" method="POST" onsubmit="submitForm(event)">
             <div class="form-group">
                 <label for="name">Όνομα</label>
                 <input type="text" id="name" name="name" required>
@@ -53,7 +53,6 @@
                 <label for="message">Μήνυμα</label>
                 <textarea id="message" name="message" rows="4"></textarea>
             </div>
-            <div id="message"></div>
             <button type="submit">Submit</button>
         </form>
     </div>
@@ -65,40 +64,39 @@
             const date = document.getElementById('date').value;
             const time = document.getElementById('time').value;
             const service = document.getElementById('service').value;
-            const messageDiv = document.getElementById('message');
 
             // Έλεγχος για απαιτούμενα πεδία
             if (!name || !email || !phone || !date || !time || !service) {
-                messageDiv.textContent = "Παρακαλώ συμπλήρωσε όλα τα απαιτούμενα πεδία.";
-                messageDiv.style.color = "red";
+                alert("Παρακαλώ συμπλήρωσε όλα τα απαιτούμενα πεδία.");
                 return false;
             }
 
             // Έλεγχος για έγκυρο email
             const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailPattern.test(email)) {
-                messageDiv.textContent = "Παρακαλώ εισάγετε ένα έγκυρο email.";
-                messageDiv.style.color = "red";
+                alert("Παρακαλώ εισάγετε ένα έγκυρο email.");
                 return false;
             }
 
             // Έλεγχος για έγκυρο τηλέφωνο (τουλάχιστον 10 ψηφία)
             const phonePattern = /^\d{10}$/;
             if (!phonePattern.test(phone)) {
-                messageDiv.textContent = "Παρακαλώ εισάγετε ένα έγκυρο τηλέφωνο (10 ψηφία).";
-                messageDiv.style.color = "red";
+                alert("Παρακαλώ εισάγετε ένα έγκυρο τηλέφωνο (10 ψηφία).");
                 return false;
             }
 
-            // Αν όλα είναι εντάξει, υποβολή της φόρμας
-            submitForm();
-            return false; // Αποτρέπει την προεπιλεγμένη υποβολή της φόρμας
+            return true; // Αν όλα είναι εντάξει, η φόρμα μπορεί να υποβληθεί
         }
 
-        function submitForm() {
-            const form = document.querySelector('.reservation-form');
+        function submitForm(event) {
+            event.preventDefault(); // Απενεργοποίηση της προεπιλεγμένης υποβολής
+
+            if (!validateForm()) {
+                return; // Αν η επαλήθευση αποτύχει, σταμάτα εδώ
+            }
+
+            const form = event.target;
             const formData = new FormData(form);
-            const messageDiv = document.getElementById('message');
 
             fetch(form.action, {
                 method: 'POST',
@@ -107,16 +105,14 @@
             .then(response => response.text())
             .then(result => {
                 if (result === "Success") {
-                    messageDiv.textContent = "Η φόρμα υποβλήθηκε με επιτυχία!";
-                    messageDiv.style.color = "green";
+                    alert("Ευχαριστούμε για την κράτηση!"); // Pop-up μήνυμα επιτυχίας
+                    window.location.href = "index.html"; // Redirect στην αρχική σελίδα
                 } else {
-                    messageDiv.textContent = "Σφάλμα: " + result;
-                    messageDiv.style.color = "red";
+                    alert("Σφάλμα: " + result); // Pop-up μήνυμα σφάλματος
                 }
             })
             .catch(error => {
-                messageDiv.textContent = "Σφάλμα κατά την υποβολή της φόρμας.";
-                messageDiv.style.color = "red";
+                alert("Σφάλμα κατά την υποβολή της φόρμας."); // Pop-up μήνυμα σφάλματος
             });
         }
     </script>
