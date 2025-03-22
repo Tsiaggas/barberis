@@ -186,8 +186,6 @@
             const form = event.target;
             const formData = new FormData(form);
 
-            console.log("Form Data:", formData); // Εμφάνισε τα δεδομένα της φόρμας
-
             fetch(form.action, {
                 method: 'POST',
                 body: formData
@@ -196,15 +194,20 @@
                     if (!response.ok) {
                         throw new Error("Network response was not ok");
                     }
-                    return response.json(); // Διάβασε την απάντηση ως JSON
+                    return response.text(); // Διάβασε την απάντηση ως κείμενο
                 })
-                .then(result => {
-                    console.log("Response:", result); // Εμφάνισε την απάντηση
-                    if (result.status === "success") {
-                        alert(result.message); // Pop-up μήνυμα επιτυχίας
-                        window.location.href = "index.html"; // Redirect στην αρχική σελίδα
-                    } else {
-                        alert(result.message); // Pop-up μήνυμα σφάλματος
+                .then(text => {
+                    try {
+                        const result = JSON.parse(text); // Μετατροπή του κειμένου σε JSON
+                        if (result.status === "success") {
+                            alert(result.message); // Pop-up μήνυμα επιτυχίας
+                            window.location.href = "index.html"; // Redirect στην αρχική σελίδα
+                        } else {
+                            alert(result.message); // Pop-up μήνυμα σφάλματος
+                        }
+                    } catch (error) {
+                        console.error("Error parsing JSON:", error); // Εμφάνισε το σφάλμα στην κονσόλα
+                        alert("Σφάλμα κατά την επεξεργασία της απάντησης.");
                     }
                 })
                 .catch(error => {
